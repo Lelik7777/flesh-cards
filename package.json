@@ -10,11 +10,15 @@
     "format": "prettier --write src",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "renameSvgFiles": "node scripts/renameSvgIcons.cjs",
+    "updateSvg": "node scripts/updateSvgFill.cjs",
+    "generate-svg-components": "pnpm renameSvgFiles  && npx @svgr/cli --out-dir src/assets/icons/components --typescript  --icon --memo --ref --jsx-runtime automatic --replace-attr-values 'black=currentColor' -- src/assets/icons/svg && pnpm updateSvg && pnpm lint && pnpm format"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.13",
     "clsx": "^2.1.1",
+    "icons": "link:C:/Users/Alex/Documents/PROGRAMMING/REACT/flash_cards/src/assets/icons",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

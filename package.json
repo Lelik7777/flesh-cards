@@ -7,13 +7,20 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
-    "format": "prettier --write src",
+    "format": "prettier --write src && stylelint --fix '**/*.{css,less,scss,sass,sss}'",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
+    "sb": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "renameSvgFiles": "node scripts/renameSvgIcons.cjs",
     "updateSvg": "node scripts/updateSvgFill.cjs",
-    "generate-svg-components": "pnpm renameSvgFiles  && npx @svgr/cli --out-dir src/assets/icons/components --typescript  --icon --memo --ref --jsx-runtime automatic --replace-attr-values 'black=currentColor' -- src/assets/icons/svg && pnpm updateSvg && pnpm lint && pnpm format"
+    "generate-svg-components": "pnpm renameSvgFiles  && npx @svgr/cli --out-dir src/assets/icons/components --typescript  --icon --memo --ref --jsx-runtime automatic --replace-attr-values 'black=currentColor' -- src/assets/icons/svg && pnpm updateSvg && pnpm lint && pnpm format",
+    "comp": "node scripts/create-component.js",
+    "format:file": "prettier --write",
+    "lint:file": "eslint --fix"
+  },
+  "scriptsComments": {
+    "comp": "Create folder with files for component,need name in cli",
+    "sb": "Starts the Storybook development server"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.13",

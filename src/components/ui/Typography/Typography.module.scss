@@ -1,0 +1,69 @@
+@mixin font($size, $line-height: var(--line-height-m), $weight: var(--font-weight-regular)) {
+  margin: 0;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+}
+
+.h1 {
+  @include font(var(--font-size-xxl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.h2 {
+  @include font(var(--font-size-xl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.h3 {
+  @include font(var(--font-size-l), var(--line-height-m), var(--font-weight-bold));
+}
+
+.h4 {
+  @include font(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.body1 {
+  @include font(var(--font-size-m), var(--line-height-m), var(--font-weight-regular));
+}
+
+.body2 {
+  @include font(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+}
+
+.subtitle1 {
+  @include font(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.subtitle2 {
+  @include font(var(--font-size-s), var(--line-height-m), var(--font-weight-bold));
+}
+
+.caption {
+  @include font(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+}
+
+.overline {
+  @include font(var(--font-size-xs), var(--line-height-s), var(--font-weight-bold));
+}
+
+.link1,
+.link2 {
+  cursor: pointer;
+  color: var(--color-info-500);
+  text-decoration: underline;
+}
+
+.link1,
+.link1:visited {
+  @include font(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+}
+
+.link2,
+.link2:visited {
+  @include font(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+}
+
+.error {
+  @include font(var(--font-size-xs), var(--line-height-m), var(--font-weight-regular));
+
+  color: var(--color-danger-300);
+}

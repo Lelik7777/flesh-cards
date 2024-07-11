@@ -1,5 +1,6 @@
 import { ArrowBackOutline } from '@/assets/icons/components'
 
+import { Card } from './components/ui'
 import { Button } from './components/ui/Button'
 
 export function App() {
@@ -7,9 +8,10 @@ export function App() {
     <div>
       hello
       <div></div>
-      <Button as={'a'} variant={'link'}>
+      <Button variant={'primary'}>
         <ArrowBackOutline fill={'#721cd3'} height={24} width={24} />
       </Button>
+      <Card />
     </div>
   )
 }

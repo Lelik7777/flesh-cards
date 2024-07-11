@@ -1,10 +1,15 @@
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ForwardedRef, ReactNode, forwardRef } from 'react'
 
 import clsx from 'clsx'
 
 import styles from './Button.module.scss'
 
-export type Props<T extends ElementType = 'button'> = ComponentPropsWithoutRef<T> &
+type InferType<T> = T extends ElementType<infer U> ? U : never
+/**
+ * The props for the Button component.
+ * @template T - The HTML element type or React component to render as the button.
+ */
+export type ButtonProps<T extends ElementType = 'button'> = ComponentPropsWithoutRef<T> &
   Partial<{
     as: T
     children: ReactNode
@@ -13,17 +18,27 @@ export type Props<T extends ElementType = 'button'> = ComponentPropsWithoutRef<T
     variant: 'link' | 'primary' | 'secondary'
   }>
 
-export const Button = <T extends ElementType = 'button'>(props: Props<T>) => {
-  const { as: Component = 'button', className, fullWidth, variant = 'primary', ...rest } = props
+/**
+ * A polymorphic and reusable button component.
+ * @template T - The HTML element type or React component to render as the button.
+ * @param props - The props for the Button component.
+ * @returns A React element representing the button.
+ */
 
-  return (
-    <Component
-      className={clsx(
-        styles[variant],
-        fullWidth && styles.fullWidth,
-        className && styles[className]
-      )}
-      {...rest}
-    />
-  )
-}
+export const Button = forwardRef(
+  <T extends ElementType = 'button'>(props: ButtonProps<T>, ref?: ForwardedRef<InferType<T>>) => {
+    const { as: Component = 'button', className, fullWidth, variant = 'primary', ...rest } = props
+
+    return (
+      <Component
+        className={clsx(
+          styles[variant],
+          fullWidth && styles.fullWidth,
+          className && styles[className]
+        )}
+        ref={ref}
+        {...rest}
+      />
+    )
+  }
+)

@@ -27,6 +27,18 @@ export type TypographyProps<T extends ElementType = 'p'> = {
   variant?: TypographyType
 }
 
+/**
+ * The `Typography` component is a flexible and reusable component for rendering text content with predefined styles.
+ * It allows you to specify the semantic HTML element (e.g., 'p', 'h1', 'span') and the desired text variant (e.g., 'body1', 'h1', 'link1').
+ *
+ * @param props - The props object for the `Typography` component.
+ * @param props.as - The semantic HTML element to be used as the root element for the text content.
+ * @param props.children - The content to be rendered inside the `Typography` component.
+ * @param props.className - Additional CSS class names to be applied to the `Typography` component.
+ * @param props.variant - The predefined text variant to be applied to the `Typography` component.
+ * @returns The rendered `Typography` component.
+ */
+
 export const Typography = <T extends ElementType = 'p'>({
   as,
   children,

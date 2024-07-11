@@ -1,6 +1,6 @@
 import { ArrowBackOutline } from '@/assets/icons/components'
 
-import { Card } from './components/ui'
+import { Card, Typography } from './components/ui'
 import { Button } from './components/ui/Button'
 
 export function App() {
@@ -12,6 +12,7 @@ export function App() {
         <ArrowBackOutline fill={'#721cd3'} height={24} width={24} />
       </Button>
       <Card />
+      <Typography variant={'error'}>some went wrong</Typography>
     </div>
   )
 }

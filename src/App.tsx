@@ -1,4 +1,4 @@
-import { ArrowBackOutline } from '@/assets/icons/components'
+import { ArrowBackOutline } from '@/assets'
 
 import { Card, Typography } from './components/ui'
 import { Button } from './components/ui/Button'

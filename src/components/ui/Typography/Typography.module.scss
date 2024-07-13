@@ -1,9 +1,4 @@
-@mixin font($size, $line-height: var(--line-height-m), $weight: var(--font-weight-regular)) {
-  margin: 0;
-  font-size: $size;
-  font-weight: $weight;
-  line-height: $line-height;
-}
+@use '@/styles' as *;
 
 .h1 {
   @include font(var(--font-size-xxl), var(--line-height-l), var(--font-weight-bold));

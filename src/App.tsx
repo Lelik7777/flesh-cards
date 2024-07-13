@@ -1,6 +1,6 @@
 import { ArrowBackOutline } from '@/assets'
 
-import { Card, Typography } from './components/ui'
+import { Card, TextField, Typography } from './components/ui'
 import { Button } from './components/ui/Button'
 
 export function App() {
@@ -13,6 +13,9 @@ export function App() {
       </Button>
       <Card />
       <Typography variant={'error'}>some went wrong</Typography>
+      <div style={{ width: '50%' }}>
+        <TextField label={'input'} type={'search'} />
+      </div>
     </div>
   )
 }

@@ -14,16 +14,19 @@
     "renameSvgFiles": "node scripts/renameSvgIcons.cjs",
     "updateSvg": "node scripts/updateSvgFill.cjs",
     "generate-svg-components": "pnpm renameSvgFiles  && npx @svgr/cli --out-dir src/assets/icons/components --typescript  --icon --memo --ref --jsx-runtime automatic --replace-attr-values 'black=currentColor' -- src/assets/icons/svg && pnpm updateSvg && pnpm lint && pnpm format",
+    "gen-svg-comp": "npx @svgr/cli --memo --jsx-runtime automatic --icon --typescript --ref -- src/assets/icons/svg/checked.svg > src/assets/icons/components-manual/Checked.tsx",
     "comp": "node scripts/create-component.js",
     "format:file": "prettier --write",
     "lint:file": "eslint --fix"
   },
   "scriptsComments": {
     "comp": "Create folder with files for component,need name in cli",
-    "sb": "Starts the Storybook development server"
+    "sb": "Starts the Storybook development server",
+    "gen-svg-comp": "change file name checked.svg and Checked.tsx "
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.13",
+    "@radix-ui/react-checkbox": "^1.1.1",
     "clsx": "^2.1.1",
     "icons": "link:C:/Users/Alex/Documents/PROGRAMMING/REACT/flash_cards/src/assets/icons",
     "react": "^18.3.1",

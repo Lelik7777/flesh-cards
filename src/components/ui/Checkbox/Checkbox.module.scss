@@ -1,0 +1,69 @@
+// container: styles.container,
+// indicator: styles.indicator,
+// root: styles.root,
+// wrapper: styles.wrapper,
+.wrapper,
+.root,
+.label {
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  background-color: var(--color-dark-900);
+  border-radius: 50%;
+
+  &:active,
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  background-color: var(--color-dark-900);
+  border: 2px solid var(--color-light-900);
+
+  &:active {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+
+  &.disabled {
+    color: var(--color-dark-100);
+  }
+}
+
+.container {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.indicator {
+  width: 18px;
+  height: 18px;
+}
+
+.label.disabled {
+  color: var(--color-dark-100);
+}

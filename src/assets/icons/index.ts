@@ -1,2 +1,2 @@
 export * from './components'
-export * from './componets-manual'
+export * from './components-manual'

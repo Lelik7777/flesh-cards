@@ -1,3 +1,4 @@
+export * from './Tabs'
 export * from './Card'
 export * from './Checkbox'
 export * from './TextField'

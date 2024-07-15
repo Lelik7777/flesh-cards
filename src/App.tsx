@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { ArrowBackOutline } from '@/assets'
 
-import { Card, Checkbox, TextField, Typography } from './components/ui'
+import { Card, Checkbox, TabContent, Tabs, TextField, Typography } from './components/ui'
 import { Button } from './components/ui/Button'
 
 export function App() {
@@ -24,6 +24,18 @@ export function App() {
         {' '}
         <Checkbox checked={checked} label={'checkbox'} onChange={setChecked} />
       </div>
+      <Tabs
+        defaultValue={'one'}
+        tabs={[
+          { id: '0', title: 'one', value: 'one' },
+          { id: '1', title: 'two', value: 'two' },
+          { disabled: true, id: '2', title: 'three', value: 'three' },
+        ]}
+      >
+        <TabContent value={'one'}>content one</TabContent>
+        <TabContent value={'two'}>content two</TabContent>
+        <TabContent value={'three'}>content three</TabContent>
+      </Tabs>
     </div>
   )
 }

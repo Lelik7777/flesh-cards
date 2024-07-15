@@ -17,6 +17,19 @@ type Props = {
   onChange?: (checked: boolean) => void
 }
 
+/**
+ * Checkbox component
+ *
+ * @param {Props} props - The props for the Checkbox component
+ * @param {boolean} [props.checked] - The checked state of the checkbox
+ * @param {string} [props.className] - Additional CSS classes to apply to the container
+ * @param {boolean} [props.disabled] - Whether the checkbox is disabled
+ * @param {string} [props.id] - The unique identifier for the checkbox
+ * @param {string} [props.label] - The label text for the checkbox
+ * @param {(checked: boolean) => void} [props.onChange] - The callback function to be called when the checkbox state changes
+ * @returns {JSX.Element} - The Checkbox component
+ */
+
 export const Checkbox = ({ checked, disabled, id, label, onChange }: Props) => {
   const innerId = useId()
   const finalId = id ?? innerId

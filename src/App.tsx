@@ -2,7 +2,18 @@ import { useState } from 'react'
 
 import { ArrowBackOutline } from '@/assets'
 
-import { Card, Checkbox, TabContent, Tabs, TextField, Typography } from './components/ui'
+import {
+  Card,
+  Checkbox,
+  TabContent,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tabs,
+  TextField,
+  Typography,
+} from './components/ui'
 import { Button } from './components/ui/Button'
 
 export function App() {
@@ -36,6 +47,15 @@ export function App() {
         <TabContent value={'two'}>content two</TabContent>
         <TabContent value={'three'}>content three</TabContent>
       </Tabs>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>one cell</TableCell>
+            <TableCell>two cell</TableCell>
+            <TableCell>three cell</TableCell>
+          </TableRow>
+        </TableHead>
+      </Table>
     </div>
   )
 }

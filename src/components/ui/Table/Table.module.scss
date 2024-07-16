@@ -1,0 +1,32 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent;
+}
+
+.thead {
+  background-color: var(--color-dark-500);
+}
+
+tbody .trow {
+  border-bottom: 1px solid var(--color-dark-500);
+}
+
+.tcell,
+.headCell {
+  padding: 6px 24px;
+
+  span {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    & svg {
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+}
+
+.headCell.arrowDown svg {
+  transform: rotate(180deg);
+}

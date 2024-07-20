@@ -5,6 +5,7 @@ import { ArrowBackOutline } from '@/assets'
 import {
   Card,
   Checkbox,
+  Pagination,
   TabContent,
   Table,
   TableCell,
@@ -56,6 +57,7 @@ export function App() {
           </TableRow>
         </TableHead>
       </Table>
+      <Pagination currentPage={1} onChangePage={() => {}} pageSize={1} totalCount={10} />
     </div>
   )
 }

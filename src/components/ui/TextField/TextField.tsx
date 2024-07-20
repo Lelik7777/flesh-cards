@@ -38,7 +38,6 @@ export type PropsTextField = {
 export const TextField = forwardRef<HTMLInputElement, PropsTextField>(
   (
     {
-      className,
       disabled = false,
       error,
       id,
@@ -48,7 +47,6 @@ export const TextField = forwardRef<HTMLInputElement, PropsTextField>(
       onClearInput,
       placeholder,
       type = 'text',
-      ...rest
     },
     ref
   ) => {
@@ -111,13 +109,13 @@ export const TextField = forwardRef<HTMLInputElement, PropsTextField>(
         ;(refButton.current as HTMLButtonElement).classList.add(styles.hidden)
       }
     }
-    let containClassHidden
+    // let containClassHidden = null
 
-    if (refButton.current) {
-      containClassHidden = (refButton.current as HTMLButtonElement).classList.contains(
-        styles.hidden ? styles.hidden : ''
-      )
-    }
+    // if (refButton.current) {
+    //   containClassHidden = (refButton.current as HTMLButtonElement).classList.contains(
+    //     styles.hidden ? styles.hidden : ''
+    //   )
+    // }
 
     return (
       <div>

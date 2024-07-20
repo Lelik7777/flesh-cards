@@ -1,0 +1,47 @@
+.root {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+}
+
+.btn {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+
+  &:focus-visible {
+    border: 2px solid var(--color-info-900);
+  }
+
+  &.selected {
+    color: var(--color-dark-900);
+    background-color: var(--color-light-100);
+  }
+
+  &.disabled {
+    color: var(--color-dark-100);
+  }
+}
+
+.select {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,91 @@
+.trigger {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 12px 16px;
+
+  background-color: transparent;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  transition: all 0.3ms ease;
+
+  &:hover {
+    background-color: var(--color-dark-500);
+    border: 1px solid var(--color-dark-100);
+  }
+
+  &:focus-visible,
+  &:focus {
+    border: 1px solid var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+
+    & .icon {
+      color: var(--color-dark-300);
+    }
+  }
+
+  &[data-state='open'] {
+    background-color: transparent;
+    border-color: var(--color-dark-100);
+    border-bottom: none;
+
+    & svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.content {
+  width: var(--radix-select-trigger-width);
+  padding: 8px 0;
+
+  background-color: transparent;
+  border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.viewport {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.selectItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+
+  &:hover,
+  &[data-highlighted] {
+    background-color: var(--color-accent-900);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1 rem;
+
+  height: 400px;
+  padding: 50px;
+
+  background-color: black;
+  border: 1px solid #ccc;
+}

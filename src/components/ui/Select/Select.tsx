@@ -28,6 +28,7 @@ type Props = {
  * @param {boolean} [props.disabled] - Whether the select is disabled.
  * @param {(value: string) => void} props.onChangeValue - The function to call when the selected value changes.
  * @param {Option[]} props.options - The available options for the select.
+ * @type {Option = {id: number title: string value: string}}
  * @param {string} [props.placeholder] - The placeholder text to display when no value is selected.
  * @param {string} props.value - The currently selected value.
  * @param {React.Ref<ElementRef<typeof SelectRadix.Root>>} ref - The ref to the select component.

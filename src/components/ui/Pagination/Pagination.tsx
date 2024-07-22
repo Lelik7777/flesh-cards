@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { ArrowIosBack, ArrowIosForward } from '@/assets'
 import { clsx } from 'clsx'
@@ -9,6 +9,7 @@ import { Typography } from '../Typography'
 import { usePagination } from './usePagination'
 
 type PaginationProps = {
+  children?: ReactNode
   currentPage: number
   onChangePage: (num: number) => void
   pageSize: number
@@ -16,6 +17,7 @@ type PaginationProps = {
   totalCount: number
 } & ComponentPropsWithoutRef<'div'>
 export const Pagination = ({
+  children,
   currentPage,
   onChangePage,
   pageSize,
@@ -61,7 +63,7 @@ export const Pagination = ({
           <ArrowIosForward />
         </PaginationButton>
       </div>
-      <SelectContainer content={['Показать', 'на странице']} />
+      {children}
     </div>
   )
 }
@@ -90,9 +92,10 @@ const PaginationButton = ({ children, disabled, isSelected, onClick }: Paginatio
 }
 
 type SelectContainerProps = {
+  children: ReactNode
   content: string[]
 }
-const SelectContainer = ({ content }: SelectContainerProps) => {
+export const SelectContainer = ({ children, content }: SelectContainerProps) => {
   const classNames = {
     select: styles.select,
   }
@@ -102,7 +105,7 @@ const SelectContainer = ({ content }: SelectContainerProps) => {
       <Typography as={'span'} variant={'body2'}>
         {content[0]}
       </Typography>
-      <div>Select component</div>
+      <div>{children}</div>
       <Typography as={'span'} variant={'body2'}>
         {content[1]}
       </Typography>

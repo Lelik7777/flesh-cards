@@ -24,6 +24,7 @@ export type TypographyProps<T extends ElementType = 'p'> = {
   as?: T
   children?: ReactNode
   className?: string
+  color?: string
   variant?: TypographyType
 }
 
@@ -43,13 +44,14 @@ export const Typography = <T extends ElementType = 'p'>({
   as,
   children,
   className,
+  color,
   variant = 'body1',
   ...rest
 }: Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>> & TypographyProps<T>) => {
   const Component = as || 'p'
 
   return (
-    <Component className={clsx(styles[variant], className)} {...rest}>
+    <Component className={clsx(styles[variant], className)} color={color} {...rest}>
       {children}
     </Component>
   )

@@ -1,3 +1,4 @@
+export * from './Slider'
 export * from './Dropdown'
 export * from './Select'
 export * from './Pagination'

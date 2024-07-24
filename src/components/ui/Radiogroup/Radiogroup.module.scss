@@ -1,0 +1,117 @@
+/* reset */
+button {
+  all: unset;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item {
+  cursor: pointer;
+
+  position: relative;
+
+  width: 16px;
+  height: 16px;
+
+  background-color: transparent;
+  border: 2px solid var(--color-accent-500);
+  border-radius: 100%;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 36px;
+    height: 36px;
+
+    opacity: 0;
+    background-color: var(--color-dark-500);
+
+    /* Цвет фона при наведении */
+    border-radius: 50%;
+
+    transition: all 0.3s ease;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    border-color: var(--color-accent-900);
+
+    &::before {
+      pointer-events: none;
+      opacity: 0 !important;
+    }
+  }
+
+  &:hover::before {
+    opacity: 1;
+    background-color: var(--color-dark-500);
+  }
+
+  &:focus::before {
+    opacity: 1;
+    background-color: var(--color-accent-900);
+  }
+
+  &:active::before {
+    opacity: 1;
+    background-color: var(--color-accent-900);
+  }
+}
+
+.indicator {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  &[data-disabled]::after {
+    background-color: var(--color-accent-900);
+  }
+}
+
+.indicator::after {
+  content: '';
+
+  display: block;
+
+  width: 9px;
+  height: 9px;
+
+  background-color: var(--color-accent-500);
+  border-radius: 50%;
+}
+
+.label {
+  cursor: pointer;
+
+  padding-left: 15px;
+
+  font-size: 15px;
+  line-height: 1;
+  color: white;
+}
+
+.item[data-disabled] + .label {
+  pointer-events: none;
+  color: var(--color-light-900);
+}

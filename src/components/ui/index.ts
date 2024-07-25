@@ -1,3 +1,4 @@
+export * from './Dialog'
 export * from './Radiogroup'
 export * from './Slider'
 export * from './Dropdown'

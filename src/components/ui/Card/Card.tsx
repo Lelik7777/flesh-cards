@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react'
 
+import clsx from 'clsx'
+
 import styles from './Card.module.scss'
 
 type PropsCard = {} & ComponentPropsWithoutRef<'div'>
@@ -19,5 +21,5 @@ export const Card = forwardRef<HTMLDivElement, PropsCard>(({ className, ...rest 
     root: styles.root,
   }
 
-  return <div ref={ref} {...rest} className={classNames.root}></div>
+  return <div ref={ref} {...rest} className={clsx(classNames.root, className)}></div>
 })

@@ -15,7 +15,7 @@ export type ButtonProps<T extends ElementType = 'button'> = ComponentPropsWithou
     children: ReactNode
     className: string
     fullWidth: boolean
-    variant: 'link' | 'primary' | 'secondary'
+    variant: 'icon' | 'link' | 'primary' | 'secondary'
   }>
 
 /**

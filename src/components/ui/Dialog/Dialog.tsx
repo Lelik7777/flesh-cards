@@ -11,8 +11,8 @@ import { Typography } from '../Typography'
 
 type DialogProps = {
   children: ReactNode
-  footer: 'footer1' | 'footer2'
-  header: 'header1' | 'header2'
+  footer?: 'footer1' | 'footer2'
+  header?: 'header1' | 'header2'
   headerTitle?: string
   triggerTitle?: string
 } & ComponentPropsWithoutRef<typeof DialogRadix.Root>

@@ -27,6 +27,8 @@
 
   &:focus-visible {
     border: 2px solid var(--color-info-900);
+    outline: 2px solid var(--color-info-900);
+    outline-offset: 2px;
   }
 
   &.selected {

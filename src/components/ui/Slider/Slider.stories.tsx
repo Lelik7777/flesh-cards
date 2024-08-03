@@ -16,7 +16,17 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    step: 1,
+    value: [20, 80],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This is the default usage of the Slider component.',
+      },
+    },
+  },
   render: () => {
     return (
       <div className={styles.wrapper}>
@@ -26,16 +36,18 @@ export const Default: Story = {
   },
 }
 export const ControlledSlider: Story = {
-  args: {},
-  render: () => {
+  args: {
+    step: 1,
+  },
+  render: args => {
     const [value, setValue] = useState([15, 60])
-    const handleOnChangeValue = (e: number[]) => {
-      setValue(e)
+    const handleOnChangeValue = (newValue: number[]) => {
+      setValue(newValue)
     }
 
     return (
       <div className={styles.wrapper}>
-        <Slider onValueChange={handleOnChangeValue} value={value} />
+        <Slider {...args} onValueChange={handleOnChangeValue} value={value} />
       </div>
     )
   },

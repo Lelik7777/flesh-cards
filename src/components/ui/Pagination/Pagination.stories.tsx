@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { useState } from 'react'
+import { ComponentProps, useState } from 'react'
 
 import { Option, Select } from '../Select'
 import { Pagination, SelectContainer } from './Pagination'
@@ -21,8 +21,17 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+type PaginationProps = ComponentProps<typeof Pagination>
+
 export const Default: Story = {
-  render: args => {
+  parameters: {
+    docs: {
+      description: {
+        story: 'This is the default usage of the Pagination component.',
+      },
+    },
+  },
+  render: (args: PaginationProps) => {
     const [page, setPage] = useState(1)
     const handlePageChange = (num: number) => {
       setPage(num)
@@ -40,29 +49,36 @@ export const Default: Story = {
 }
 
 export const PaginationWithSelect: Story = {
-  render: args => {
+  render: (args: PaginationProps) => {
     const [page, setPage] = useState(1)
-    const [option, setOption] = useState('10')
+    const [option, setOption] = useState('1')
+    const [pageSize, setPageSize] = useState(1)
     const handlePageChange = (num: number) => {
       setPage(num)
     }
+    const handleOptionChange = (value: string) => {
+      setOption(value)
+      setPageSize(Number(value))
+    }
     const options: Option[] = [
-      { id: 0, title: '10', value: '10' },
-      { id: 1, title: '20', value: '20' },
-      { id: 2, title: '30', value: '30' },
-      { id: 3, title: '50', value: '50' },
-      { id: 4, title: '100', value: '100' },
+      { id: 0, title: '1', value: '1' },
+      { id: 1, title: '5', value: '5' },
+      { id: 2, title: '10', value: '10' },
+      { id: 3, title: '20', value: '20' },
+      { id: 4, title: '30', value: '30' },
+      { id: 5, title: '50', value: '50' },
+      { id: 6, title: '100', value: '100' },
     ]
 
     return (
       <Pagination
         currentPage={page}
         onChangePage={handlePageChange}
-        pageSize={args.pageSize}
+        pageSize={pageSize}
         totalCount={args.totalCount}
       >
         <SelectContainer content={['Показать', 'на странице']}>
-          <Select onChangeValue={setOption} options={options} value={option} />
+          <Select onChangeValue={handleOptionChange} options={options} value={option} />
         </SelectContainer>
       </Pagination>
     )

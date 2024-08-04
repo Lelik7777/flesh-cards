@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { ComponentProps } from 'react'
+
 //import { RadioGroupItem, RadioItem, Radiogroup } from './Radiogroup'
 import { Radio, RadioGroup } from './Radiogroup'
 const meta = {
@@ -11,11 +13,18 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+/**
+ * Represents a single radio button item.
+ */
 type RadioItem = {
+  /** Unique identifier for the radio button */
   id: string
+  /** Label text for the radio button */
   label: string
+  /** Value associated with the radio button */
   value: string
 }
+
 const items: RadioItem[] = [
   { id: '0', label: 'radiogroup', value: 'radiogroup0' },
   { id: '1', label: 'radiogroup', value: 'radiogroup1' },
@@ -24,7 +33,16 @@ const items: RadioItem[] = [
   { id: '4', label: 'radiogroup', value: 'radiogroup4' },
 ]
 
+type RadioGroupProps = ComponentProps<typeof RadioGroup>
+
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'This is the default usage of the RadioGroup component.',
+      },
+    },
+  },
   render: () => {
     return (
       <RadioGroup>
@@ -38,7 +56,23 @@ export const Default: Story = {
 export const DisabledRadioGroup: Story = {
   args: {
     disabled: true,
+    name: 'disabled-radio-group',
+  } as RadioGroupProps,
+  render: args => {
+    return (
+      <RadioGroup {...args}>
+        {items.map(item => (
+          <Radio id={item.id} key={item.id} label={item.label} value={item.value} />
+        ))}
+      </RadioGroup>
+    )
   },
+}
+
+export const PreselectedRadio: Story = {
+  args: {
+    defaultValue: 'radiogroup2',
+  } as RadioGroupProps,
   render: args => {
     return (
       <RadioGroup {...args}>

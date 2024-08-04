@@ -58,18 +58,23 @@ button {
     }
   }
 
-  &:hover::before {
+  &:hover::before,
+  &:focus::before,
+  &:active::before {
     opacity: 1;
+  }
+
+  &:hover::before {
     background-color: var(--color-dark-500);
   }
 
-  &:focus::before {
-    opacity: 1;
+  &:focus-visible::before {
     background-color: var(--color-accent-900);
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 2px;
   }
 
   &:active::before {
-    opacity: 1;
     background-color: var(--color-accent-900);
   }
 }

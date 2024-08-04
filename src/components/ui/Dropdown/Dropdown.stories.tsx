@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import React from 'react'
+
 import {
   Edit2Outline,
   LogOut,
@@ -33,18 +35,32 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const content1 = [
-  { icon: <PlayCircleOutline />, text: 'Learn' },
-  { icon: <Edit2Outline />, text: 'Edit' },
-  { icon: <Trash />, text: 'Delete' },
+type DropdownContent = {
+  icon: React.ReactNode
+  id: string
+  text: React.ReactNode | string
+}
+
+/**
+ * Wrapper component for Storybook demonstration purposes.
+ * This wrapper is used to provide a controlled environment for the Dropdown in Storybook.
+ */
+const StoryWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.wrapper}>{children}</div>
+)
+
+const content1: DropdownContent[] = [
+  { icon: <PlayCircleOutline />, id: 'learn', text: 'Learn' },
+  { icon: <Edit2Outline />, id: 'edit', text: 'Edit' },
+  { icon: <Trash />, id: 'delete', text: 'Delete' },
 ]
 
 export const DropdownWithIcon: Story = {
   args: {
     children: (
       <>
-        {content1.map((item, i) => (
-          <DropdownItem key={i}>
+        {content1.map(item => (
+          <DropdownItem key={item.id}>
             {item.icon}
             <Typography as={'span'} variant={'caption'}>
               {item.text}
@@ -56,29 +72,30 @@ export const DropdownWithIcon: Story = {
   },
   render: args => {
     return (
-      <div className={styles.wrapper}>
+      <StoryWrapper>
         <Dropdown {...args} />
-      </div>
+      </StoryWrapper>
     )
   },
 }
 
-const content2 = [
+const content2: DropdownContent[] = [
   {
     icon: <img alt={'photo Ivan'} src={Ivan} />,
+    id: 'photo_ivan',
     text: (
       <>
         <Typography as={'p'} variant={'subtitle2'}>
           Ivan
         </Typography>
-        <Typography as={'p'} style={{ color: `#808080` }} variant={'caption'}>
+        <Typography as={'p'} color={'var(--color-dark-100)'} variant={'caption'}>
           ortodis@mail.com
         </Typography>
       </>
     ),
   },
-  { icon: <PersonOutline />, text: 'My Profile' },
-  { icon: <LogOut />, text: 'Sign Out' },
+  { icon: <PersonOutline />, id: 'profile', text: 'My Profile' },
+  { icon: <LogOut />, id: 'sign_out', text: 'Sign Out' },
 ]
 
 export const DropdownWithAvatar: Story = {

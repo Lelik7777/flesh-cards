@@ -51,7 +51,11 @@ export const Typography = <T extends ElementType = 'p'>({
   const Component = as || 'p'
 
   return (
-    <Component className={clsx(styles[variant], className)} style={{ color }} {...rest}>
+    <Component
+      className={clsx(styles[variant], className)}
+      style={{ color, ...rest.style }}
+      {...rest}
+    >
       {children}
     </Component>
   )

@@ -1,6 +1,16 @@
 import { useMemo } from 'react'
 
-const DOTS = '...'
+const DOTS = '...' as const
+
+/**
+ * Props for the usePagination hook.
+ * @typedef {Object} PaginationProps
+ * @property {number} currentPage - The current active page number.
+ * @property {function(number): void} onChangePage - Callback function when the page changes.
+ * @property {number} pageSize - The number of items per page.
+ * @property {number} siblingCount - The number of sibling pages to show around the current page.
+ * @property {number} totalCount - The total number of items.
+ */
 
 type Props = {
   currentPage: number
@@ -9,16 +19,14 @@ type Props = {
   siblingCount: number
   totalCount: number
 }
-type PaginationRange = ('...' | number)[]
+
+/** Type for the pagination range array */
+type PaginationRange = (number | typeof DOTS)[]
 
 /**
- Generates an array of pagination elements.
- *source: www.freecodecamp.org/news/*build-a-custom-pagination-component-in-react/
- @param {Object} props - The props object.
- @param {number} props.totalPageCount - The total number of pages.
- @param {number} props.currentPage - The current page.
- @param {number} [props.siblingCount=1] - The number of siblings (pages) to display on each side of the current page.
- @returns {Array} An array of pagination elements.
+ * Custom hook for generating pagination logic.
+ * @param {PaginationProps} props - The props object.
+ * @returns {Object} An object containing pagination functions and range.
  */
 
 export const usePagination = ({
@@ -28,12 +36,19 @@ export const usePagination = ({
   siblingCount = 1,
   totalCount,
 }: Props) => {
+  /**
+   * Memoized calculation of the pagination range.
+   * @type {PaginationRange}
+   */
   const paginationRange = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize)
 
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
     const totalPageNumbers = siblingCount + 5
 
+    if (totalCount <= 0 || pageSize <= 0) {
+      return []
+    }
     /*
       Case 1:
       If the number of pages is less than the page numbers we want to show in our
@@ -99,7 +114,7 @@ export const usePagination = ({
     }
   }
   const handleClickNextBtn = () => {
-    if (currentPage < totalCount && currentPage >= 1) {
+    if (currentPage < Math.ceil(totalCount / pageSize)) {
       onChangePage(currentPage + 1)
     }
   }
@@ -112,6 +127,12 @@ export const usePagination = ({
   }
 }
 
+/**
+ * Generates a range of numbers.
+ * @param {number} start - The start of the range.
+ * @param {number} end - The end of the range.
+ * @returns {number[]} An array of numbers from start to end, inclusive.
+ */
 function getRange(start: number, end: number) {
   const length = end - start + 1
 

@@ -27,15 +27,15 @@
 
   transition: border-color 0.3s ease;
 
-  &:active {
+  &:active:not(:disabled) {
     border-color: var(--color-light-100);
   }
 
-  &:focus-visible {
+  &:focus-visible:not(:disabled) {
     border-color: var(--color-info-900);
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--color-dark-100);
     border-color: var(--color-dark-700);
   }

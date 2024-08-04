@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { ArrowIosBack, ArrowIosForward } from '@/assets'
 import { clsx } from 'clsx'
@@ -8,6 +8,17 @@ import styles from './Pagination.module.scss'
 import { Typography } from '../Typography'
 import { usePagination } from './usePagination'
 
+/**
+ * Props for the Pagination component.
+ * @typedef {Object} PaginationProps
+ * @property {ReactNode} [children] - The child elements of the pagination component.
+ * @property {number} currentPage - The current active page number.
+ * @property {function(number): void} onChangePage - Callback function when the page changes.
+ * @property {number} pageSize - The number of items per page.
+ * @property {number} [siblingCount=1] - The number of sibling pages to show around the current page.
+ * @property {number} totalCount - The total number of items.
+ */
+
 type PaginationProps = {
   children?: ReactNode
   currentPage: number
@@ -16,6 +27,14 @@ type PaginationProps = {
   siblingCount?: number
   totalCount: number
 } & ComponentPropsWithoutRef<'div'>
+
+/**
+ * A custom Pagination component.
+ * Source: www.freecodecamp.org/news/*build-a-custom-pagination-component-in-react/
+ * @param {PaginationProps} props - The props for the Pagination component.
+ * @returns {JSX.Element} - The rendered Pagination component.
+ */
+
 export const Pagination = ({
   children,
   currentPage,
@@ -24,37 +43,46 @@ export const Pagination = ({
   siblingCount = 1,
   totalCount,
 }: PaginationProps) => {
-  const classNames = { container: styles.container, root: styles.root }
+  const classNames = { container: styles.container, root: styles.root } as const
   const { handleClickNextBtn, handleClickPrevBtn, handlePageChange, paginationRange } =
     usePagination({ currentPage, onChangePage, pageSize, siblingCount, totalCount })
 
   const disabledPrevBtn = currentPage < 2
-  const disabledNextBtn = currentPage > totalCount - 1
+  const disabledNextBtn = currentPage >= Math.ceil(totalCount / pageSize)
 
-  const mainButtons = paginationRange.map((pageLocal, i) => {
-    const isSelected = currentPage === pageLocal
+  const mainButtons = React.useMemo(
+    () =>
+      paginationRange.map((pageLocal, i) => {
+        const isSelected = currentPage === pageLocal
 
-    return (
-      <PaginationButton
-        isSelected={isSelected}
-        key={i}
-        onClick={() => handlePageChange(pageLocal as number)}
-      >
-        <Typography as={'span'} variant={'body2'}>
-          {pageLocal}
-        </Typography>
-      </PaginationButton>
-    )
-  })
+        return (
+          <PaginationButton
+            isSelected={isSelected}
+            key={i}
+            onClick={() => handlePageChange(pageLocal as number)}
+          >
+            <Typography as={'span'} variant={'body2'}>
+              {pageLocal}
+            </Typography>
+          </PaginationButton>
+        )
+      }),
+    [paginationRange, currentPage, handlePageChange]
+  )
 
   return (
     <div className={clsx(classNames.root)}>
-      <PaginationButton disabled={disabledPrevBtn} onClick={() => handleClickPrevBtn()}>
+      <PaginationButton
+        aria-label={'Previous page'}
+        disabled={disabledPrevBtn}
+        onClick={() => handleClickPrevBtn()}
+      >
         <ArrowIosBack />
       </PaginationButton>
       <div className={clsx(classNames.container)}>
         {mainButtons}
         <PaginationButton
+          aria-label={'Next page'}
           disabled={disabledNextBtn}
           onClick={() => {
             handleClickNextBtn()
@@ -68,33 +96,56 @@ export const Pagination = ({
   )
 }
 
+/**
+ * Props for the PaginationButton component.
+ * @typedef {Object} PaginationButtonProps
+ * @property {boolean} [disabled] - Whether the button is disabled.
+ * @property {boolean} [isSelected] - Whether the button is selected.
+ * @property {function(): void} [onClick] - Callback function when the button is clicked.
+ */
+
 type PaginationButtonProps = {
   disabled?: boolean
   isSelected?: boolean
   onClick?: () => void
 } & ComponentPropsWithoutRef<'button'>
+
+/**
+ * A custom PaginationButton component.
+ * @param {PaginationButtonProps} props - The props for the PaginationButton component.
+ * @returns {JSX.Element} - The rendered PaginationButton component.
+ */
+
 const PaginationButton = ({ children, disabled, isSelected, onClick }: PaginationButtonProps) => {
   const classNames = {
-    btn: clsx(styles.btn, isSelected && styles.selected, disabled && styles.disabled),
-  }
+    btn: clsx(styles.btn, { [styles.disabled]: disabled, [styles.selected]: isSelected }),
+  } as const
 
   return (
-    <button
-      className={clsx(classNames.btn)}
-      disabled={disabled}
-      onClick={onClick}
-      tabIndex={0}
-      type={'button'}
-    >
+    <button className={clsx(classNames.btn)} disabled={disabled} onClick={onClick} type={'button'}>
       {children}
     </button>
   )
 }
 
+/**
+ * Props for the SelectContainer component.
+ * @typedef {Object} SelectContainerProps
+ * @property {ReactNode} children - The child elements of the select container.
+ * @property {string[]} content - The content to display before and after the children.
+ */
+
 type SelectContainerProps = {
   children: ReactNode
   content: string[]
 }
+
+/**
+ * A custom SelectContainer component.
+ * @param {SelectContainerProps} props - The props for the SelectContainer component.
+ * @returns {JSX.Element} - The rendered SelectContainer component.
+ */
+
 export const SelectContainer = ({ children, content }: SelectContainerProps) => {
   const classNames = {
     select: styles.select,
@@ -103,11 +154,11 @@ export const SelectContainer = ({ children, content }: SelectContainerProps) => 
   return (
     <div className={clsx(classNames.select)}>
       <Typography as={'span'} variant={'body2'}>
-        {content[0]}
+        {content[0] || ''}
       </Typography>
       <div>{children}</div>
       <Typography as={'span'} variant={'body2'}>
-        {content[1]}
+        {content[1] || ''}
       </Typography>
     </div>
   )

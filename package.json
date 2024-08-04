@@ -17,7 +17,9 @@
     "gen-svg-comp": "npx @svgr/cli --memo --jsx-runtime automatic --icon --typescript --ref -- src/assets/icons/svg/checked.svg > src/assets/icons/components-manual/Checked.tsx",
     "comp": "node scripts/create-component.js",
     "format:file": "prettier --write",
-    "lint:file": "eslint --fix"
+    "lint:file": "eslint --fix",
+    "prepare": "husky install",
+    "pre-push": "pnpm run build"
   },
   "scriptsComments": {
     "comp": "Create folder with files for component,need name in cli",
@@ -62,6 +64,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "^0.8.0",
+    "husky": "^8.0.0",
     "sass": "^1.77.6",
     "storybook": "^8.1.11",
     "stylelint": "^16.6.1",

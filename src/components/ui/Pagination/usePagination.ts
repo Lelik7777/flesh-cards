@@ -132,7 +132,7 @@ export const usePagination = ({
  * @param {number} start - The start of the range.
  * @param {number} end - The end of the range.
  * @returns {number[]} An array of numbers from start to end, inclusive.
- *
+ */
 function getRange(start: number, end: number) {
   const length = end - start + 1
 

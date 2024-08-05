@@ -4,7 +4,9 @@ import fsPromises from 'node:fs/promises'
 
 async function createComponent(name) {
   const capitalizedName = capitalizeFirstLetter(name)
-
+  /**
+   * there change path after /components for different types of components
+   */
   const dirPath = `./src/components/ui/${capitalizedName}`
   const componentPath = `${dirPath}/${capitalizedName}.tsx`
   const componentContent = `
@@ -85,6 +87,9 @@ if (!name) {
 }
 
 async function updateMainIndex(name) {
+  /**
+   * there change path after /components for different types of components
+   */
   const mainIndexPath = './src/components/ui/index.ts'
   const mainIndexContent = await fsPromises.readFile(mainIndexPath, 'utf-8')
   const lineToAdd = `export * from './${name}'`

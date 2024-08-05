@@ -7,7 +7,7 @@ async function createComponent(name) {
   /**
    * there change path after /components for different types of components
    */
-  const dirPath = `./src/components/ui/${capitalizedName}`
+  const dirPath = `./src/components/auth/${capitalizedName}`
   const componentPath = `${dirPath}/${capitalizedName}.tsx`
   const componentContent = `
   import styles from './${capitalizedName}.module.scss'
@@ -90,7 +90,7 @@ async function updateMainIndex(name) {
   /**
    * there change path after /components for different types of components
    */
-  const mainIndexPath = './src/components/ui/index.ts'
+  const mainIndexPath = './src/components/auth/index.ts'
   const mainIndexContent = await fsPromises.readFile(mainIndexPath, 'utf-8')
   const lineToAdd = `export * from './${name}'`
 

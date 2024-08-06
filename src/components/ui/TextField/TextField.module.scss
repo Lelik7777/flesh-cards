@@ -36,8 +36,8 @@
   }
 
   &:hover:not(:disabled) {
-    background-color: var(--color-dark-100);
-    border-color: var(--color-dark-700);
+    background-color: var(--color-dark-700);
+    border-color: var(--color-dark-100);
   }
 
   &[type='search']::-webkit-search-cancel-button {

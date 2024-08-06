@@ -5,18 +5,19 @@ import clsx from 'clsx'
 import styles from './Button.module.scss'
 
 type InferType<T> = T extends ElementType<infer U> ? U : never
+
 /**
  * The props for the Button component.
  * @template T - The HTML element type or React component to render as the button.
  */
-export type ButtonProps<T extends ElementType = 'button'> = ComponentPropsWithoutRef<T> &
-  Partial<{
-    as: T
-    children: ReactNode
-    className: string
-    fullWidth: boolean
-    variant: 'icon' | 'link' | 'primary' | 'secondary'
-  }>
+
+export type ButtonProps<T extends ElementType = 'button'> = {
+  as?: T
+  children?: ReactNode
+  className?: string
+  fullWidth?: boolean
+  variant?: 'icon' | 'link' | 'primary' | 'secondary'
+} & ComponentPropsWithoutRef<T>
 
 /**
  * A polymorphic and reusable button component.

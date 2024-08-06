@@ -8,3 +8,15 @@
   font-weight: $weight;
   line-height: $line-height;
 }
+
+@mixin card {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  width: 100%;
+  max-width: 420px;
+  padding: 33px 36px 25px;
+
+  text-align: center;
+}

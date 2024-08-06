@@ -1,0 +1,30 @@
+@use '@/styles' as *;
+
+.card {
+  @include card;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.forgot {
+  margin-bottom: 48px;
+  text-align: right;
+}
+
+.signUp {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  justify-content: center;
+}

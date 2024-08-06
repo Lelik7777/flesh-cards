@@ -1,29 +1,38 @@
 import { exec } from 'child_process'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
+import path from 'path'
 
-async function createComponent(name) {
-  const capitalizedName = capitalizeFirstLetter(name)
+/* eslint-disable no-console */
 
-  const dirPath = `./src/components/ui/${capitalizedName}`
-  const componentPath = `${dirPath}/${capitalizedName}.tsx`
+/**
+ * Creates a new component with associated files.
+ * @param {string} folderName - The name of the folder to create the component in.
+ * @param {string} componentName - The name of the component to create.
+ */
+
+async function createComponent(folderName, componentName) {
+  const capitalizedName = capitalizeFirstLetter(componentName)
+
+  const dirPath = `./src/components/${folderName}/${capitalizedName}`
+  const componentPath = path.join(dirPath, `${capitalizedName}.tsx`)
   const componentContent = `
   import styles from './${capitalizedName}.module.scss'
 
-  type Props = {}
+  export type Props${capitalizedName} = {}
 
-  export const ${capitalizedName} = ({}:Props) => {
+  export const ${capitalizedName} = ({}:Props${capitalizedName}) => {
     return (<></>)
   }
   `
 
-  const sassPath = `${dirPath}/${capitalizedName}.module.scss`
+  const sassPath = path.join(dirPath, `${capitalizedName}.module.scss`)
   const sassContent = ``
 
-  const indexPath = `${dirPath}/index.ts`
+  const indexPath = path.join(dirPath, `index.ts`)
   const indexContent = `export * from './${capitalizedName}'`
 
-  const storyPath = `${dirPath}/${capitalizedName}.stories.tsx`
+  const storyPath = path.join(dirPath, `${capitalizedName}.stories.tsx`)
   const storyContent = `
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -43,61 +52,103 @@ export const Default: Story = {
 }
 `
 
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath)
-  }
+  fs.mkdirSync(dirPath, { recursive: true })
   fs.writeFileSync(componentPath, componentContent)
   fs.writeFileSync(sassPath, sassContent)
   fs.writeFileSync(indexPath, indexContent)
   fs.writeFileSync(storyPath, storyContent)
 
+  /**
+   * Executes formatting command on the created files.
+   */
+
   exec(`pnpm run format:file ${dirPath}`, (err, stdout, stderr) => {
     if (err) {
-      // node couldn't execute the command
+      console.log(`Error formatting files:${err}`)
+
       return
     }
 
     // the *entire* stdout and stderr (buffered)
+
     console.log(`stdout: ${stdout}`)
     console.log(`stderr: ${stderr}`)
   })
+
+  /**
+   * Executes linting command on the created files.
+   */
+
   exec(`pnpm run lint:dir ${dirPath}/**`, (err, stdout, stderr) => {
     if (err) {
-      // node couldn't execute the command
+      console.error(`Error linting files: ${err}`)
+
       return
     }
 
     // the *entire* stdout and stderr (buffered)
+
     console.log(`stdout: ${stdout}`)
     console.log(`stderr: ${stderr}`)
   })
 }
+
+/**
+ * Updates the main index file with an export for the new component.
+ * @param {string} folderName - The name of the folder containing the component.
+ * @param {string} componentName - The name of the component to add to the index.
+ */
+
+async function updateMainIndex(folderName, componentName) {
+  const mainIndexPath = `./src/components/${folderName}/index.ts`
+  let mainIndexContent = ''
+
+  try {
+    mainIndexContent = await fsPromises.readFile(mainIndexPath, 'utf-8')
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log(`Creating new index file for ${folderName}`)
+    } else {
+      console.error(`Error reading index file: ${error}`)
+
+      return
+    }
+  }
+
+  const lineToAdd = `export * from './${componentName}'`
+
+  if (mainIndexContent.includes(lineToAdd)) {
+    return
+  }
+
+  const mainIndexContentArray = mainIndexContent.split('\n')
+
+  mainIndexContentArray.unshift(lineToAdd)
+
+  await fsPromises.writeFile(mainIndexPath, mainIndexContentArray.join('\n'))
+}
+
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string - The string to capitalize.
+ * @returns {string} The string with its first letter capitalized.
+ */
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-const name = process.argv[2]
+// Get command line arguments
 
-if (!name) {
-  console.log('Please provide component name')
+const folderName = process.argv[2]
+const componentName = process.argv[3]
+
+// Check if both folder name and component name are provided
+
+if (!folderName || !componentName) {
+  console.log('Please provide both folder name and component name')
   process.exit(1)
 }
 
-async function updateMainIndex(name) {
-  const mainIndexPath = './src/components/ui/index.ts'
-  const mainIndexContent = await fsPromises.readFile(mainIndexPath, 'utf-8')
-  const lineToAdd = `export * from './${name}'`
-
-  if (mainIndexContent.includes(lineToAdd)) {
-    return
-  }
-  const mainIndexContentArray = mainIndexContent.split('\n')
-
-  mainIndexContentArray.unshift(lineToAdd)
-
-  fs.writeFileSync(mainIndexPath, mainIndexContentArray.join('\n'))
-}
-
-createComponent(name)
-void updateMainIndex(capitalizeFirstLetter(name))
+createComponent(folderName, componentName)
+void updateMainIndex(folderName, capitalizeFirstLetter(componentName))

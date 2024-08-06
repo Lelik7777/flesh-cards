@@ -2,15 +2,19 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import { Card, Checkbox, TextField, Typography } from '@/components/ui'
 import { Button } from '@/components/ui/Button'
+import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
+import { z } from 'zod'
 
 import styles from './SignIn.module.scss'
 
-type FormInputs = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
+const signInSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  rememberMe: z.boolean().default(false),
+})
+
+export type FormInputs = z.infer<typeof signInSchema>
 type SignInProps = {
   onSubmit: (data: FormInputs) => void
 }
@@ -21,7 +25,14 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<FormInputs>()
+  } = useForm<FormInputs>({
+    defaultValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    resolver: zodResolver(signInSchema),
+  })
   const onSubmitForm: SubmitHandler<FormInputs> = data => {
     onSubmit(data)
   }
@@ -58,7 +69,9 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
           <Typography className={clsx(classes.forgot)} variant={'body2'}>
             Forgot password?
           </Typography>
-          <Button fullWidth>Sign In</Button>
+          <Button fullWidth type={'submit'}>
+            Sign In
+          </Button>
         </form>
       </div>
       <div className={clsx(classes.signUp)}>

@@ -1,42 +1,35 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
 import { Card, Checkbox, TextField, Typography } from '@/components/ui'
 import { Button } from '@/components/ui/Button'
-import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
-import { z } from 'zod'
 
 import styles from './SignIn.module.scss'
 
-const signInSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  rememberMe: z.boolean().default(false),
-})
+import { FormInputs, useSignInForm } from './useSignInForm'
 
-export type FormInputs = z.infer<typeof signInSchema>
+/**
+ * Props for SignIn component
+ * Callback function to handle form submission
+ * @param {FormInputs} data - The form data
+ */
+
 type SignInProps = {
   onSubmit: (data: FormInputs) => void
 }
 
-export const SignIn = ({ onSubmit }: SignInProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormInputs>({
-    defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
-    resolver: zodResolver(signInSchema),
-  })
-  const onSubmitForm: SubmitHandler<FormInputs> = data => {
-    onSubmit(data)
-  }
+/**
+ * SignIn component
+ *
+ * This component renders a sign-in form with email, password, and remember me fields.
+ * It uses react-hook-form for form handling and Zod for validation.
+ *
+ * @param {SignInProps} props - The component props
+ * @returns {JSX.Element} The rendered SignIn component
+ */
 
+export const SignIn = ({ onSubmit }: SignInProps) => {
+  const { control, errors, handleSubmit, onSubmitForm, register } = useSignInForm(onSubmit)
   const classes = {
     card: styles.card,
     container: styles.container,

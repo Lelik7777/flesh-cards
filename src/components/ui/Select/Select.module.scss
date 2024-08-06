@@ -1,3 +1,8 @@
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
 .trigger {
   cursor: pointer;
 
@@ -55,11 +60,6 @@
   background-color: transparent;
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
 }
 
 .viewport {

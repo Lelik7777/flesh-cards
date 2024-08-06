@@ -45,6 +45,7 @@ type DropdownContent = {
  * Wrapper component for Storybook demonstration purposes.
  * This wrapper is used to provide a controlled environment for the Dropdown in Storybook.
  */
+
 const StoryWrapper = ({ children }: { children: React.ReactNode }) => (
   <div className={styles.wrapper}>{children}</div>
 )

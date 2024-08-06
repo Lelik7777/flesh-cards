@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { ComponentProps } from 'react'
 
 //import { RadioGroupItem, RadioItem, Radiogroup } from './Radiogroup'
+
 import { Radio, RadioGroup } from './Radiogroup'
 const meta = {
   component: RadioGroup,
@@ -16,12 +17,12 @@ type Story = StoryObj<typeof meta>
 /**
  * Represents a single radio button item.
  */
+
 type RadioItem = {
-  /** Unique identifier for the radio button */
   id: string
-  /** Label text for the radio button */
+
   label: string
-  /** Value associated with the radio button */
+
   value: string
 }
 

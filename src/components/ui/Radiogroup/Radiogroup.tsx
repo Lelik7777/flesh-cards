@@ -14,6 +14,7 @@ import { Typography } from '../Typography'
  * @property {string} [defaultValue] - The default value of the radio group.
  * @property {boolean} [disabled] - Whether the radio group is disabled.
  */
+
 export type RadioGroupProps = {
   children?: ReactNode
   defaultValue?: string
@@ -26,6 +27,7 @@ export type RadioGroupProps = {
  * @param {React.Ref<ElementRef<typeof RadioGroupRadix.Root>>} ref - The ref for the radio group root element.
  * @returns {JSX.Element} - The rendered RadioGroup component.
  */
+
 export const RadioGroup = forwardRef<ElementRef<typeof RadioGroupRadix.Root>, RadioGroupProps>(
   ({ children, defaultValue, disabled, ...rest }: RadioGroupProps, ref) => {
     const classNames = {
@@ -54,6 +56,7 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadioGroupRadix.Root>, Ra
  * @property {string} [label] - The label for the radio item.
  * @property {string} value - The value of the radio item.
  */
+
 export type RadioProps = {
   id?: string
   label?: string

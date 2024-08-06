@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Controller } from 'react-hook-form'
 
 import { Card, Checkbox, TextField, Typography } from '@/components/ui'

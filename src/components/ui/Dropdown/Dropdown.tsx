@@ -144,6 +144,7 @@ export const DropdownContent = forwardRef<
  */
 
 export type DropdownItemProps = {} & ComponentPropsWithoutRef<typeof DropdownMenu.Item>
+
 /**
  * An individual item within the Dropdown.
  *

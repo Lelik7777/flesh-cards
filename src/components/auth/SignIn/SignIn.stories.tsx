@@ -5,6 +5,11 @@ import React from 'react'
 import { SignIn } from './SignIn'
 
 const meta: Meta<typeof SignIn> = {
+  args: {
+    onSubmit: (data: any) => {
+      alert(JSON.stringify(data))
+    },
+  },
   component: SignIn,
   tags: ['autodocs'],
   title: 'Components/SignIn',
